@@ -1,4 +1,5 @@
 #include <stdio.h>
+
 const int strlen(const char *str)
 {
   int length = 0;
@@ -6,6 +7,7 @@ const int strlen(const char *str)
       length++;
   return length;
 }
+
 const char *strdup(const char *str)
 {
   int str_len = 0;
@@ -15,3 +17,6 @@ const char *strdup(const char *str)
     *(str_dup+(str_len*sizeof(char))) = *(str_len*sizeof(char));
     str_len++;
     *(str_dup+(str_len*sizeof(char))) = '\0';
+  }
+   return str_dup;
+}
