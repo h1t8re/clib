@@ -55,9 +55,20 @@ const int strcmp(const char *str0, const char *str1)
 	return 1;
 }
 
-
-  
-
+const char *strconcatenate(const char *str0, const char *str1)
+{
+	int length0 = strlen(str0);
+    int length1 = strlen(str1);
+    char *res = strdup(str0);
+    while(i < length0+length1) 
+    {
+        res = (char *)realloc(res, (length+i+1)*sizeof(char));
+        i++;
+        *(res+length+i) = *(str1+i);
+	}
+    *(res+length0+i) = '\0';
+    return 0;
+}
 
 
 
