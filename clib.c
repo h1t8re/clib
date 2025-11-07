@@ -22,7 +22,7 @@ const char *strdup(const char *str)
 }
 
 /* strlen(str0) > strlen(str1) */
-const int strcontains(const char *str0, const char*str1)
+const int strcontains(const char *str0, const char *str1)
 {
 	int i = 0;
 	int j = 0;
@@ -41,7 +41,7 @@ const int strcontains(const char *str0, const char*str1)
 	}
 }
 
-const int strcmp(const char *str0, const char * str1)
+const int strcmp(const char *str0, const char *str1)
 {
 	if(strlen(str0) != strlen(str1))
 		return 1;
