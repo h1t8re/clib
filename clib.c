@@ -52,6 +52,7 @@ const int strcmp(const char *str0, const char * str1)
 		if(i == strlen(str1))
 			return 0;
 	}
+	return 1;
 }
 
 
