@@ -25,19 +25,19 @@ const char *strdup(const char *str)
 const int strcontains(const char *str0, const char*str1)
 {
 	int i = 0;
-  int j = 0;
-  while((*(str0+(i+j)) == (*(str1+j)))
-  {
-     j++;
-     if(j == strlen(str1))
-			 return 0;
-     if(*(str0+(i+j)) != '\0')
-			 return 1;
-     if(*(str1+j) == '\0')
-     {
-        j = 0;
-        i++;
-		 }
+	int j = 0;
+	while((*(str0+(i+j)) == (*(str1+j)))
+	{
+		j++;
+		if(j == strlen(str1))
+			return 0;
+		if(*(str0+(i+j)) != '\0')
+			return 1;
+		if(*(str1+j) == '\0')
+		{
+			j = 0;
+			i++;
+		}
 	}
 }
 
@@ -45,12 +45,12 @@ const int strcmp(const char *str0, const char * str1)
 {
 	if(strlen(str0) != strlen(str1))
 		return 1;
-  int i = 0;
-  while(((*(str0+i)) == (*(str1+i))) & (*(str0+i) != '\0'))
-  {
-     i++;
-     if(i == strlen(str1))
-			 return 0;
+	int i = 0;
+	while(((*(str0+i)) == (*(str1+i))) & (*(str0+i) != '\0'))
+	{
+		i++;
+		if(i == strlen(str1))
+			return 0;
 	}
 }
 
