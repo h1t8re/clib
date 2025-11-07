@@ -60,11 +60,12 @@ const char *strconcatenate(const char *str0, const char *str1)
 	int length0 = strlen(str0);
     int length1 = strlen(str1);
     char *res = strdup(str0);
-    while(i < length0+length1) 
+	int i = 0;
+	while(i < length0+length1) 
     {
-        res = (char *)realloc(res, (length+i+1)*sizeof(char));
-        i++;
-        *(res+length+i) = *(str1+i);
+        res = (char *)realloc(res, (length0+i+1)*sizeof(char));
+        *(res+length0+i+1) = *(str1+i);
+		i++;
 	}
     *(res+length0+i) = '\0';
     return 0;
