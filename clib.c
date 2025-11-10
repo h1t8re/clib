@@ -26,7 +26,7 @@ const int strcontains(const char *str0, const char *str1)
 {
 	int i = 0;
 	int j = 0;
-	while((*(str0+(i+j)) == (*(str1+j)))
+	while((*(str0+(i+j))) == (*(str1+j)))
 	{
 		j++;
 		if(j == strlen(str1))
