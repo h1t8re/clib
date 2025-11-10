@@ -3,7 +3,7 @@
 const int strlen(const char *str)
 {
 	int length = 0;
-	while(*(str+length) != '\0')
+	while(*(str+(length*sizeof(char))) != '\0')
 		length++;
 	return length;
 }
@@ -12,7 +12,7 @@ const char *strdup(const char *str)
 {
 	int str_len = 0;
 	char *str_dup = (char *)malloc(sizeof(char));
-	while( *(str+str_len) != '\0' )
+	while( *(str+(str_len*sizeof(char))) != '\0' )
 	{
 		*(str_dup+(str_len*sizeof(char))) = *(str_len*sizeof(char));
 		str_len++;
@@ -26,19 +26,20 @@ const int strcontains(const char *str0, const char *str1)
 {
 	int i = 0;
 	int j = 0;
-	while((*(str0+(i+j))) == (*(str1+j)))
+	while(*(str0+((i+j)*sizeof(char))) == (*(str1+(j*sizeof(char)))))
 	{
 		j++;
 		if(j == strlen(str1))
 			return 0;
-		if(*(str0+(i+j)) != '\0')
+		if(*(str0+((i+j)*sizeof(char))) != '\0')
 			return 1;
-		if(*(str1+j) == '\0')
+		if(*(str1+(j*sizeof(char))) == '\0')
 		{
 			j = 0;
 			i++;
 		}
 	}
+	return 1;
 }
 
 const int strcmp(const char *str0, const char *str1)
@@ -46,7 +47,7 @@ const int strcmp(const char *str0, const char *str1)
 	if(strlen(str0) != strlen(str1))
 		return 1;
 	int i = 0;
-	while(((*(str0+i)) == (*(str1+i))) & (*(str0+i) != '\0'))
+	while((*(str0+(i*sizeof(char))) == (*(str1+(i*sizeof(char))))) & (*(str0+(i*sizeof(char))) != '\0'))
 	{
 		i++;
 		if(i == strlen(str1))
@@ -57,21 +58,21 @@ const int strcmp(const char *str0, const char *str1)
 
 const char *strconcatenate(const char *str0, const char *str1)
 {
-	int length0 = strlen(str0);
-    int length1 = strlen(str1);
-    char *res = strdup(str0);
-	int i = 0;
-	while(i < length0+length1) 
-    {
-        res = (char *)realloc(res, (length0+i+1)*sizeof(char));
-        *(res+length0+i+1) = *(str1+i);
-		i++;
-	}
-    *(res+length0+i) = '\0';
-    return 0;
+        int length0 = strlen(str0);
+        int length1 = strlen(str1);
+        char *res = strdup(str0);
+        int i = 0;
+        while(i < length0+length1) 
+        {
+                res = (char *)realloc(res, (length0+i+1)*sizeof(char));
+                *(res+(length0+i+1)*sizeof(char)) = *(str1+(i*sizeof(char)));
+                i++;
+        }
+        *(res+(length0+i)*sizeof(char)) = '\0';
+        return 0;
 }
 
-char *readi()
+const char *readi()
 {
         char *buffer = (char *)malloc(2*sizeof(char));
         char *buffer_buffer_len_content = (char *)malloc(2*sizeof(char));
@@ -95,7 +96,7 @@ char *readi()
         return buffer;
 }
 
-char *read_file(const char *restrict file_name)
+const char *read_file(const char *restrict file_name)
 {
         const char *restrict mode = strdup("r\0");
         FILE *restrict fd = fopen(file_name, mode);
@@ -113,7 +114,7 @@ char *read_file(const char *restrict file_name)
         return buffer;
 }
 
-char *read_file_v1(char *file_name)
+const char *read_file_v1(char *file_name)
 {
         const char *restrict mode = strdup("r\0");
         FILE *restrict fd = fopen(file_name, mode);
@@ -124,7 +125,7 @@ char *read_file_v1(char *file_name)
         while((buffer[buffer_len] = fgetc(fd)) != EOF)
         {
                 buffer_len++;
-                buffer = (char *)realloc(buffer, (buffer_len+1));
+                buffer = (char *)realloc(buffer, (buffer_len+1)*sizeof(char));
         }
         buffer[buffer_len] = '\0';
         return buffer;
@@ -249,39 +250,3 @@ char **strsplit_v1(const char *string, const char *spliter)
         array[a] = '\0';
         return array;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
