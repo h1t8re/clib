@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 const int strlen(const char *str)
 {
@@ -14,7 +15,7 @@ const char *strdup(const char *str)
 	char *str_dup = (char *)malloc(sizeof(char));
 	while( *(str+(str_len*sizeof(char))) != '\0' )
 	{
-		*(str_dup+(str_len*sizeof(char))) = *(str_len*sizeof(char));
+		*(str_dup+(str_len*sizeof(char))) = *(str+(str_len*sizeof(char)));
 		str_len++;
 	}
 	*(str_dup+(str_len*sizeof(char))) = '\0';

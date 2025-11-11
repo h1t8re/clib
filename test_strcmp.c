@@ -1,7 +1,7 @@
 #include "clib.h"
 #include <stdio.h>
 
-int int main(int argc, char const *argv[])
+int main(int argc, char const *argv[])
 {
 	char *str0 = "012345\0";
 	char *str1 = "6789\0";
