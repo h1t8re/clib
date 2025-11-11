@@ -214,13 +214,11 @@ char **strsplit_v1(const char *string,const char *spliter)
 {
         char **array = (char **)malloc(sizeof(char *));
         char *buffer;
-        char *tmp;
         int i = 0;
         int j = 1;
         int k = find_string_position(string, spliter, j);
         int a = 0;
         int c = 0;
-        int vk = 0;
         while(string[i] != '\0')
         {
                 buffer = (char *)malloc(sizeof(char));
@@ -229,12 +227,7 @@ char **strsplit_v1(const char *string,const char *spliter)
                         buffer[c] = string[i];
                         c = c +1;
                         i = i +1;
-                        buffer = (char *)realloc(buffer, (c+2)*sizeof(char));
-                }
-                if(k > i+strlen(spliter) & (vk == 0))
-                {
-                        k = k-strlen(spliter);
-                        vk = 1;
+                        buffer = (char *)realloc(buffer, (c+1)*sizeof(char));
                 }
                 i = i + strlen(spliter);
                 buffer[c] = '\0';
