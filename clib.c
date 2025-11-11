@@ -181,8 +181,8 @@ int convert_binary_to_integer(int *array, int architecture)
         }
         return number;
 }
-/*need patch */
-int find_string_position(const char *buffer, const char *string, const int position)
+
+int find_string_position(const char *buffer, const char *string, int position)
 {
         int i = 0;
         int j = 0;
