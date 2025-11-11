@@ -3,58 +3,59 @@
 
 const int strlen(const char *str)
 {
-	int length = 0;
-	while(*(str+(length*sizeof(char))) != '\0')
-		length++;
-	return length;
+        int length = 0;
+        while(*(str+(length*sizeof(char))) != '\0')
+                length++;
+        return length;
 }
 
-const char *strdup(const char *str)
+char *strdup(const char *str)
 {
-	int str_len = 0;
-	char *str_dup = (char *)malloc(sizeof(char));
-	while( *(str+(str_len*sizeof(char))) != '\0' )
-	{
-		*(str_dup+(str_len*sizeof(char))) = *(str+(str_len*sizeof(char)));
-		str_len++;
-	}
-	*(str_dup+(str_len*sizeof(char))) = '\0';
-	return str_dup;
+        int str_len = 0;
+        char *str_dup = (char *)malloc(sizeof(char));
+        while( *(str+(str_len*sizeof(char))) != '\0' )
+        {
+                *(str_dup+(str_len*sizeof(char))) = *(str+(str_len*sizeof(char)));
+                str_len++;
+                str_dup = (char *)realloc(str_dup, (str_len+1)*sizeof(char));
+        }
+        *(str_dup+(str_len*sizeof(char))) = '\0';
+        return str_dup;
 }
 
 /* strlen(str0) > strlen(str1) */
 const int strcontains(const char *str0, const char *str1)
 {
-	int i = 0;
-	int j = 0;
-	while(*(str0+((i+j)*sizeof(char))) == (*(str1+(j*sizeof(char)))))
-	{
-		j++;
-		if(j == strlen(str1))
-			return 0;
-		if(*(str0+((i+j)*sizeof(char))) != '\0')
-			return 1;
-		if(*(str1+(j*sizeof(char))) == '\0')
-		{
-			j = 0;
-			i++;
-		}
-	}
-	return 1;
+        int i = 0;
+        int j = 0;
+        while(*(str0+((i+j)*sizeof(char))) == (*(str1+(j*sizeof(char)))))
+        {
+                j++;
+                if(j == strlen(str1))
+                        return 0;
+                if(*(str0+((i+j)*sizeof(char))) != '\0')
+                        return 1;
+                if(*(str1+(j*sizeof(char))) == '\0')
+                {
+                        j = 0;
+                        i++;
+                }
+        }
+        return 1;
 }
 
 const int strcmp(const char *str0, const char *str1)
 {
-	if(strlen(str0) != strlen(str1))
-		return 1;
-	int i = 0;
-	while((*(str0+(i*sizeof(char))) == (*(str1+(i*sizeof(char))))) & (*(str0+(i*sizeof(char))) != '\0'))
-	{
-		i++;
-		if(i == strlen(str1))
-			return 0;
-	}
-	return 1;
+        if(strlen(str0) != strlen(str1))
+                return 1;
+        int i = 0;
+        while((*(str0+(i*sizeof(char))) == (*(str1+(i*sizeof(char))))) & (*(str0+(i*sizeof(char))) != '\0'))
+        {
+                i++;
+                if(i == strlen(str1))
+                        return 0;
+        }
+        return 1;
 }
 
 const char *strconcatenate(const char *str0, const char *str1)
@@ -97,7 +98,7 @@ const char *readi()
         return buffer;
 }
 
-const char *read_file(const char *restrict file_name)
+char *read_file(const char *restrict file_name)
 {
         const char *restrict mode = strdup("r\0");
         FILE *restrict fd = fopen(file_name, mode);
@@ -115,7 +116,7 @@ const char *read_file(const char *restrict file_name)
         return buffer;
 }
 
-const char *read_file_v1(char *file_name)
+const char *read_file_v1(const char *file_name)
 {
         const char *restrict mode = strdup("r\0");
         FILE *restrict fd = fopen(file_name, mode);
@@ -209,33 +210,34 @@ int find_string_position(const char *buffer, const char *string, int position)
         }
         return 0;
 }
-
-char **strsplit_v1(const char *string,const char *spliter)
+/* need patch */
+char **strsplit_v1(const char *str,const char *spliter)
 {
         char **array = (char **)malloc(sizeof(char *));
         char *buffer;
         int i = 0;
         int j = 1;
-        int k = find_string_position(string, spliter, j);
+        int k = find_string_position(str, spliter, j);
         int a = 0;
         int c = 0;
-        while(string[i] != '\0')
+        while(str[i] != '\0')
         {
                 buffer = (char *)malloc(sizeof(char));
-                while((i <= k) & (string[i] != '\0'))
+                while(((i <= k) & (str[i] != '\0')))
                 {
-                        buffer[c] = string[i];
+                        buffer[c] = str[i];
                         c = c +1;
                         i = i +1;
                         buffer = (char *)realloc(buffer, (c+1)*sizeof(char));
                 }
-                i = i + strlen(spliter);
+
                 buffer[c] = '\0';
                 array[a] = strdup(buffer);
+                i = i + strlen(spliter);
                 j = j +1;
-                k = find_string_position(string, spliter, j);
+                k = find_string_position(str, spliter, j);
                 if(k == 0)
-                        k = strlen(string);
+                        k = strlen(str);
                 c = 0;
                 a = a +1;
                 array = (char **)realloc(array, (a+1)*sizeof(char *));
