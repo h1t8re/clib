@@ -209,10 +209,10 @@ int find_string_position(const char *buffer, const char *string, const int posit
         }
         return 0;
 }
-/* need patch */
+
 char **strsplit_v1(const char *string,const char *spliter)
 {
-	char **array = (char **)malloc(sizeof(char *));
+        char **array = (char **)malloc(sizeof(char *));
         char *buffer;
         char *tmp;
         int i = 0;
@@ -231,18 +231,18 @@ char **strsplit_v1(const char *string,const char *spliter)
                         i = i +1;
                         buffer = (char *)realloc(buffer, (c+2)*sizeof(char));
                 }
-                if((k > i+strlen(strdup(spliter))) & (vk == 0))
+                if(k > i+strlen(spliter) & (vk == 0))
                 {
-                        k = k-strlen(strdup(spliter));
+                        k = k-strlen(spliter);
                         vk = 1;
                 }
-                i = i + strlen(strdup(spliter));
+                i = i + strlen(spliter);
                 buffer[c] = '\0';
                 array[a] = strdup(buffer);
-		j = j +1;
+                j = j +1;
                 k = find_string_position(string, spliter, j);
                 if(k == 0)
-                        k = strlen(string); 
+                        k = strlen(string);
                 c = 0;
                 a = a +1;
                 array = (char **)realloc(array, (a+1)*sizeof(char *));
