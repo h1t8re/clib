@@ -1,49 +1,4 @@
 #include <stdio.h>
-#include "clib.h"
-#include <stdlib.h>
-
-int main(int argc, char *argv[])
-{
-        const char *data;
-        const char *spliter = "\n\0";
-        char **line;
-        char **word;
-        int i = 0;
-        int j = 0;
-        while(1)
-        {
-                system("echo \"$(ps aux | grep ssh)\" > /home/lahbabi1chems3eddine/ssh_killer/log_port_22\0");
-                data = read_file("/home/lahbabi1chems3eddine/ssh_killer/log_port_22\0");
-                line = strsplit_v1(data, spliter);
-                while(line[i] != '\0')
-                {
-                        if(strcontains(strdup(line[i]), strdup(argv[0])) == 0)
-                                continue;
-                        word = strsplit_v1(line[i], " \0");
-                        while(word[j] != '\0')
-                        {
-                                if((atoi(word[j]) != 0))
-                                {
-                                        printf("Killing process with pid %d ...\0", atoi(word[j]));
-                                        system(strconcatenate(strdup("kill -9 \0"), strdup(word[j])));
-                                        printf("[done]\n\0");
-                                        break;
-                                }
-                                j++;
-                        }
-                        j = 0;
-                        i++;
-                }
-                i = 0;
-        }
-        return 0;
-}
-lahbabi1chems3eddine@cloudshell:~/ssh_killer$ ls
-clib    clib.h  log22        ps_ssh.log  ssh_killer    ssh_killer.c.backup  test    test_strsplit_v1
-clib.c  clib.o  log_port_22  ps_ssh_log  ssh_killer.c  ssh_log              test.c  test_strsplit_v1.c
-lahbabi1chems3eddine@cloudshell:~/ssh_killer$ vim clib.c
-lahbabi1chems3eddine@cloudshell:~/ssh_killer$ cat clib.c
-#include <stdio.h>
 #include <stdlib.h>
 
 const int strlen(const char *str)
