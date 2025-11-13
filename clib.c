@@ -52,9 +52,9 @@ const int strcmp(const char *str0, const char *str1)
         while((*(str0+(i*sizeof(char))) == (*(str1+(i*sizeof(char))))) & (*(str0+(i*sizeof(char))) != '\0'))
         {
                 i++;
-                if(i == strlen(str1))
-                        return 0;
         }
+        if(i == strlen(str1))
+                        return 0;
         return 1;
 }
 
