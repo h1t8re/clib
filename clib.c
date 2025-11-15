@@ -64,7 +64,7 @@ const char *strconcatenate(const char *str0, const char *str1)
         int length1 = strlen(str1);
         char *res = strdup(str0);
         int i = 0;
-        while(i < length0+length1) 
+        while(i < length1) 
         {
                 res = (char *)realloc(res, (length0+i+1)*sizeof(char));
                 *(res+(length0+i+1)*sizeof(char)) = *(str1+(i*sizeof(char)));
